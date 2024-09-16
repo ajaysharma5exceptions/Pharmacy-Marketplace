@@ -19,4 +19,5 @@ test.describe("Login Pharmacy logintestcases", () => {
     await pharmacyLogin(page, validEmail, validPassword);
     await pharmacyEmptyLogin(page);
   });
+  
 });
