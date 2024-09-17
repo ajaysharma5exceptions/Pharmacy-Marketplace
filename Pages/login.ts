@@ -1,15 +1,12 @@
 import { Page, expect } from "@playwright/test";
-
+import * as dotenv from "dotenv";
+dotenv.config();
 const emailInput = "input[type='text']";
 const passwordInput = "input[type='password']";
 const loginButton = "signInBtn";
 
-//Hanld the repeat elements
-async function fillLoginFields(
-  page: Page,
-  emailAddress: string,
-  password: string
-) {
+// Function to fill login fields
+async function fillLoginFields(page: Page, emailAddress: string, password: string) {
   await page.locator(emailInput).fill(emailAddress);
   await page.locator(passwordInput).fill(password);
 }
@@ -37,4 +34,13 @@ export async function pharmacyLoginInvalid(
 export async function pharmacyEmptyLogin(page: Page) {
   await page.getByTestId("signInBtn").click();
   await expect(page.getByTestId("signInBtn")).toBeDisabled();
+}
+
+// Main login function 
+export async function pharmacyLoggedIn(page: Page, baseURL: string) {
+  const validEmail = process.env.VALID_EMAIL;
+  const validPassword = process.env.VALID_PASSWORD;
+  await page.goto(`${baseURL}`);
+  await pharmacyLogin(page, validEmail!, validPassword!);
+  await expect(page.locator("//p[normalize-space()='Kiran Vishwakarma']")).toBeVisible(); 
 }
