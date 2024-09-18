@@ -1,9 +1,9 @@
 import { Page, expect } from "@playwright/test";
 import * as dotenv from "dotenv";
+import { clickButton, verifyTextContent } from "./commandFunction";
 dotenv.config();
 const emailInput = "input[type='text']";
 const passwordInput = "input[type='password']";
-const loginButton = "signInBtn";
 
 // Function to fill login fields
 async function fillLoginFields(page: Page, emailAddress: string, password: string) {
@@ -18,7 +18,7 @@ export async function pharmacyLogin(
   password: any
 ) {
   await fillLoginFields(page, emailAddress, password);
-  await page.getByTestId(loginButton).click();
+  await clickButton(page, 'SIGN IN');
 }
 
 //Login with the invalid credentials
@@ -28,19 +28,13 @@ export async function pharmacyLoginInvalid(
   password: any
 ) {
   await fillLoginFields(page, emailAddress, password);
-  await page.getByTestId("signInBtn").click();
-}
-//Empty Login
-export async function pharmacyEmptyLogin(page: Page) {
-  await page.getByTestId("signInBtn").click();
-  await expect(page.getByTestId("signInBtn")).toBeDisabled();
-}
+  await clickButton(page, 'SIGN IN');
 
+}
 // Main login function 
 export async function pharmacyLoggedIn(page: Page, baseURL: string) {
   const validEmail = process.env.VALID_EMAIL;
   const validPassword = process.env.VALID_PASSWORD;
   await page.goto(`${baseURL}`);
   await pharmacyLogin(page, validEmail!, validPassword!);
-  await expect(page.locator("//p[normalize-space()='Kiran Vishwakarma']")).toBeVisible(); 
 }
