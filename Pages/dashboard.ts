@@ -38,8 +38,9 @@ export async function selectOptionByText(page: Page, listboxSelector: string, op
   await option.click();
 };
 //Add to cart
-const dashboardInventory= {
+ const dashboardInventory= {
   search: "Find an item",
+  secondarySearch : "Search opportunity by drug name or NDC",
   searchOption: 'Vitamin',
   searchOptionValue: 0,
   searchOptionLocator: '#live-inventory-search-listbox',
