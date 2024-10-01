@@ -1,7 +1,6 @@
 import { Page, expect } from "@playwright/test";
 import * as dotenv from "dotenv";
 import { clickButton, verifyTextContent } from "./commandFunction";
-import { launchMaximizedBrowser } from "./setFullScreen";
 dotenv.config();
 const emailInput = "input[type='text']";
 const passwordInput = "input[type='password']";

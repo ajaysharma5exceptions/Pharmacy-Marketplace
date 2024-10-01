@@ -5,12 +5,10 @@ import {
   dosageFilters,
   secondaryOpportunitySearch,
   switchPrimarySecondary,
-  verifyMoreFilters,
   verifyOpportunityCards,
   verifyOpportunityPage,
 } from "../Pages/opportunity";
 import { selectDiscountPharmacy } from "../Pages/dashboard";
-import { checkCheckboxByText, clickByText, uncheckCheckboxByText } from "../Pages/commandFunction";
 
 test.describe("To verify the Opportunity page", () => {
   test.beforeEach("Login info the application", async ({ page, baseURL }) => {
@@ -35,5 +33,4 @@ test.describe("To verify the Opportunity page", () => {
   test("Verify that the Dosage Forms filters Options",async ({page})=>{
     await dosageFilters(page)
   });
-  
 });
