@@ -1,9 +1,11 @@
 import { Page, expect } from "@playwright/test";
 import {
+  checkCheckboxByText,
   clickByDataTestId,
   clickByText,
   fillByPlaceholder,
   getByRoles,
+  uncheckCheckboxByText,
   verifyTextContent,
 } from "./commandFunction";
 import { selectOptionByIndex } from "./dashboard";
@@ -56,19 +58,67 @@ export async function secondaryOpportunitySearch(page: Page) {
   await page.click(secondaryOpportunity.shoppingCartIconSelector);
 }
 
-// export async function switchPrimarySecondary(page: Page) {
-//     await clickByText(page,'Primary');
-//     await clickByText(page,'Secondary');
-// }
-
 export async function switchPrimarySecondary(page: Page) {
-    const switchPrimarySecondaryButton = page.locator('[data-testid="Opportunity-menuButton"]');
-    const isPrimarySelected = await page.locator('text=Primary').getAttribute('aria-current') === 'page';
-  
-    if (isPrimarySelected) {
-      await clickByText(page, "Secondary");
-    } else {
-      await clickByText(page, "Primary");
-    }
+  const switchPrimarySecondaryButton = page.locator(
+    '[data-testid="Opportunity-menuButton"]'
+  );
+  const isPrimarySelected =
+    (await page.locator("text=Primary").getAttribute("aria-current")) ===
+    "page";
+
+  if (isPrimarySelected) {
+    await clickByText(page, "Secondary");
+  } else {
+    await clickByText(page, "Primary");
   }
-  
+}
+
+export async function allWholeSalerDropdownFilter(page: Page) {
+  await clickByDataTestId(page, "wholesalersSelect");
+  await page.getByLabel("Capital Drug").check();
+  const verifylebalText = page
+    .getByTestId("wholesalersSelect")
+    .getByText("Capital Drug");
+  await expect(verifylebalText).toBeVisible();
+}
+const moreFilterOptions = {
+  // Categories (Checkboxes)
+  onlyShowBrands: "input[name='onlyShowBrands']",
+  onlyHiddenItems: "input[name='onlyShowHidden']",
+  onlyShowRefrigeratedItems: "input[name='onlyShowRefrigerated']",
+};
+
+async function toggleAndVerifyFilter(page: Page, filterLocator: string) {
+  const filter = page.locator(filterLocator);
+
+  if (filterLocator.includes("input")) {
+    await filter.click();
+    await expect(filter).toBeChecked();
+    await filter.click();
+    await expect(filter).not.toBeChecked();
+  } else {
+    await filter.click();
+  }
+}
+
+export async function verifyMoreFilters(page: Page) {
+  await clickByText(page, "More Filters");
+  const filters = [
+    moreFilterOptions.onlyShowBrands,
+    moreFilterOptions.onlyHiddenItems,
+    moreFilterOptions.onlyShowRefrigeratedItems,
+  ];
+  for (const filter of filters) {
+    await toggleAndVerifyFilter(page, filter);
+  }
+}
+
+//For the new Dosage Forms filters
+export async function dosageFilters(page:Page) {
+  await clickByText(page, 'More Filters')
+  await checkCheckboxByText(page, 'Only Tablets & Capsules');
+  await uncheckCheckboxByText(page,'Only Tablets & Capsules');
+  await checkCheckboxByText(page, 'Exclude Tablets & Capsules');
+  await uncheckCheckboxByText(page,'Exclude Tablets & Capsules');
+};
+
