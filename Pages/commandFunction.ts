@@ -8,6 +8,11 @@ export async function clickButton(
   await page.getByRole(role, { name: buttonText }).click();
 }
 
+//Get by the roles
+export async function getByRoles(page: Page, roleText: string | RegExp, role: any) {
+  await page.getByRole(role, { name: roleText }).click();
+}
+
 //Fill value function with Expect
 export async function fillValueAndVerify(
   page: Page,
