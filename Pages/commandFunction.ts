@@ -51,3 +51,13 @@ export async function clickByDataTestId(page:Page, value: string) {
   const element = page.getByTestId(value)
   await element.click();
 }
+//Checkbox click to check
+export async function checkCheckboxByText(page: Page, text: string) {
+  const checkboxLocator = page.getByLabel(text);
+  await checkboxLocator.check();
+}
+//checkbox click on the Uncheck
+export async function uncheckCheckboxByText(page: Page, text: string) {
+  const checkboxLocator = page.getByLabel(text);
+  await checkboxLocator.uncheck();
+}
