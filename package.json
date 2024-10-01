@@ -9,9 +9,10 @@
   "description": "",
   "devDependencies": {
     "@faker-js/faker": "^9.0.1",
-    "@playwright/test": "^1.47.0",
+    "@playwright/test": "^1.47.2",
     "@types/node": "^22.5.4",
     "dotenv": "^16.4.5",
+    "playwright": "^1.47.2",
     "typescript": "^5.6.2"
   }
 }
