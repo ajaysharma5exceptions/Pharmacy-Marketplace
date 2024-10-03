@@ -30,21 +30,21 @@ export async function verifyOpportunityCards(page: Page) {
   await verifyOpportunityPage(page);
 }
 
+const secondaryOpportunity = {
+  secondarySearch: "Search opportunity by drug name or NDC",
+  searchOption: "Vitamin",
+  searchOptionValue: 0,
+  searchOptionLocator: "#live-inventory-search-listbox",
+  drugOptions: "23155070410",
+  randomDrugName: "lis",
+  qtyInputSelector:
+    '[data-field="purchaseQuantity"] [data-testid="qtyTextField"]',
+  qtyItemValue: "5",
+  addToCartButtonSelector:
+    '[data-field="action"] [data-testid="AddShoppingCartIcon"]',
+  shoppingCartIconSelector: '[data-testid="ShoppingCartIcon"]',
+};
 export async function secondaryOpportunitySearch(page: Page) {
-  const secondaryOpportunity = {
-    secondarySearch: "Search opportunity by drug name or NDC",
-    searchOption: "Vitamin",
-    searchOptionValue: 0,
-    searchOptionLocator: "#live-inventory-search-listbox",
-    drugOptions: "23155070410",
-    randomDrugName: "lis",
-    qtyInputSelector:
-      '[data-field="purchaseQuantity"] [data-testid="qtyTextField"]',
-    qtyItemValue: "5",
-    addToCartButtonSelector:
-      '[data-field="action"] [data-testid="AddShoppingCartIcon"]',
-    shoppingCartIconSelector: '[data-testid="ShoppingCartIcon"]',
-  };
   await fillByPlaceholder(
     page,
     secondaryOpportunity.secondarySearch,
@@ -114,11 +114,43 @@ export async function verifyMoreFilters(page: Page) {
 }
 
 //For the new Dosage Forms filters
-export async function dosageFilters(page:Page) {
+export async function dosageFilters(page: Page) {
   await clickByText(page, 'More Filters')
   await checkCheckboxByText(page, 'Only Tablets & Capsules');
-  await uncheckCheckboxByText(page,'Only Tablets & Capsules');
+  await uncheckCheckboxByText(page, 'Only Tablets & Capsules');
   await checkCheckboxByText(page, 'Exclude Tablets & Capsules');
-  await uncheckCheckboxByText(page,'Exclude Tablets & Capsules');
+  await uncheckCheckboxByText(page, 'Exclude Tablets & Capsules');
 };
+
+//Hide Drug Items from the list 
+export async function hideDrugItems(page: Page) {
+  await fillByPlaceholder(
+    page,
+    secondaryOpportunity.secondarySearch,
+    secondaryOpportunity.drugOptions
+  );
+  await page.click('button[aria-label="Hide Item"]');
+  const messageLocator = page.locator('#notistack-snackbar');
+  await expect(messageLocator).toBeVisible();
+  await clickByText(page, 'More Filters');
+  await checkCheckboxByText(page, 'Only Hidden Items');
+  await verifyOpportunityPage(page); //click to Opportunity
+};
+
+//Unhide  Drug Items from the list 
+export async function unhideDrugItems(page: Page) {
+  await clickByText(page, 'More Filters');
+  await checkCheckboxByText(page, 'Only Hidden Items');
+  await page.click('body');
+  await fillByPlaceholder(
+    page,
+    secondaryOpportunity.secondarySearch,
+    secondaryOpportunity.drugOptions
+  );
+  await page.click('button[aria-label="Hide Item"]');
+  const messageLocator = page.locator('#notistack-snackbar');
+  await expect(messageLocator).toBeVisible();
+  await uncheckCheckboxByText(page, 'Only Hidden Items');
+  await verifyOpportunityPage(page); //click to Opportunity
+}
 

@@ -1,10 +1,12 @@
-import { test} from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { pharmacyLoggedIn } from "../Pages/login";
 import {
   allWholeSalerDropdownFilter,
   dosageFilters,
+  hideDrugItems,
   secondaryOpportunitySearch,
   switchPrimarySecondary,
+  unhideDrugItems,
   verifyOpportunityCards,
   verifyOpportunityPage,
 } from "../Pages/opportunity";
@@ -23,14 +25,20 @@ test.describe("To verify the Opportunity page", () => {
   test("Search NDC from the Secondary", async ({ page }) => {
     await secondaryOpportunitySearch(page);
   });
-  test("Swith the tabs Secondary to Primary",async ({page}) => {
+  test("Swith the tabs Secondary to Primary", async ({ page }) => {
     await switchPrimarySecondary(page);
   });
 
-  test("All Wholesalers filter",async({page})=>{
+  test("All Wholesalers filter", async ({ page }) => {
     await allWholeSalerDropdownFilter(page);
   });
-  test("Verify that the Dosage Forms filters Options",async ({page})=>{
-    await dosageFilters(page)
+  test("Verify that the Dosage Forms filters Options", async ({ page }) => {
+    await dosageFilters(page);
+  });
+  test("Verify that the hide button should be hide the drug", async ({ page }) => {
+    await hideDrugItems(page);
+  });
+  test("Verify that the Unhide Drug Items", async ({ page }) => {
+    await unhideDrugItems(page);
   });
 });
