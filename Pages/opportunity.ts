@@ -152,5 +152,5 @@ export async function unhideDrugItems(page: Page) {
   await expect(messageLocator).toBeVisible();
   await uncheckCheckboxByText(page, 'Only Hidden Items');
   await verifyOpportunityPage(page); //click to Opportunity
-}
+};
 
