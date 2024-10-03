@@ -23,6 +23,5 @@ test("New aaproachlogin",async({page,baseURL})=>{
   await fillValueAndVerify(page, emailInput, credentials.email);
   await fillValueAndVerify(page,passwordInput, credentials.password);
   await clickButton(page, 'SIGN IN');
-
 });
 

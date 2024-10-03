@@ -1,0 +1,14 @@
+//Locators 
+export const dashboardInventory= {
+    verifyDashboardPage: "Kiran Vishwakarma",
+    search: "Find an item",
+    searchOption: 'Vitamin',
+    searchOptionValue: 0,
+    searchOptionLocator: '#live-inventory-search-listbox',
+    drugOptions: "23155070410",
+    randomDrugName: "lis",
+    qtyInputSelector: '[data-field="purchaseQuantity"] [data-testid="qtyTextField"]',
+    qtyItemValue:  "5",
+    addToCartButtonSelector:'[data-field="action"] [data-testid="AddShoppingCartIcon"]',
+    shoppingCartIconSelector: '[data-testid="ShoppingCartIcon"]'
+  };

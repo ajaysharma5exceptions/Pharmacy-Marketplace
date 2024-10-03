@@ -37,4 +37,5 @@ export async function pharmacyLoggedIn(page: Page, baseURL: string) {
   const validPassword = process.env.VALID_PASSWORD;
   await page.goto(`${baseURL}`);
   await pharmacyLogin(page, validEmail!, validPassword!);
+  await verifyTextContent(page, "Kiran Vishwakarma");
 }
