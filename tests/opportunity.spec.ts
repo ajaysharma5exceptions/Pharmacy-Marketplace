@@ -10,7 +10,7 @@ import {
   verifyOpportunityCards,
   verifyOpportunityPage,
 } from "../Pages/opportunity";
-import { selectDiscountPharmacy } from "../Pages/dashboard";
+import { addToCartItems, selectDiscountPharmacy } from "../Pages/dashboard";
 
 test.describe("To verify the Opportunity page", () => {
   test.beforeEach("Login info the application", async ({ page, baseURL }) => {
@@ -40,5 +40,12 @@ test.describe("To verify the Opportunity page", () => {
   });
   test("Verify that the Unhide Drug Items", async ({ page }) => {
     await unhideDrugItems(page);
+  });
+
+  test("Verify that the Add drug items",async({page})=>{
+    await addToCartItems(page);
+  });
+  test("Verify that the Secondary drug item add to card",async({page})=>{
+    await secondaryOpportunitySearch(page);
   });
 });
