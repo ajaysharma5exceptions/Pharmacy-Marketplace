@@ -42,9 +42,11 @@ export async function selectOptionByText(page: Page, listboxSelector: string, op
   search: "Find an item",
   secondarySearch : "Search opportunity by drug name or NDC",
   searchOption: 'Vitamin',
+  searchThreeLetter: 'Lis',
   searchOptionValue: 0,
   searchOptionLocator: '#live-inventory-search-listbox',
   drugOptions: "23155070410",
+  invaliDdrugOptions: "231550704101", //NDC 11 number,
   randomDrugName: "lis",
   qtyInputSelector: '[data-field="purchaseQuantity"] [data-testid="qtyTextField"]',
   qtyItemValue:  "5",
@@ -55,6 +57,35 @@ export async function selectOptionByText(page: Page, listboxSelector: string, op
 export async function dashbordSearch(page:Page) {
   await fillByPlaceholder(page, dashboardInventory.search, dashboardInventory.searchOption);
   await selectOptionByIndex(page, dashboardInventory.searchOptionLocator, dashboardInventory.searchOptionValue);
+};
+//Random search 
+export async function randomSearch(page:Page) {
+  await fillByPlaceholder(page, dashboardInventory.search, dashboardInventory.searchOption);
+
+};
+
+//Dashboard Search with the Only  3 letter drug name
+export async function threeLetterSearch(page:Page) {
+  await fillByPlaceholder(page, dashboardInventory.search, dashboardInventory.searchThreeLetter);
+  await selectOptionByIndex(page, dashboardInventory.searchOptionLocator, dashboardInventory.searchOptionValue);
+};
+
+//Auto suggetion  search
+export async function autoSuggetionSearch(page:Page) {
+  await fillByPlaceholder(page, dashboardInventory.search, dashboardInventory.searchThreeLetter);
+  await selectOptionByIndex(page, dashboardInventory.searchOptionLocator, dashboardInventory.searchOptionValue);
+};
+
+
+
+//Search by Valid NDC
+export async function validNDCSearch(page:Page) {
+  await fillByPlaceholder(page, dashboardInventory.search, dashboardInventory.drugOptions);
+};
+
+//Invalid NDC 
+export async function invalidNDCSearch(page:Page) {
+  await fillByPlaceholder(page, dashboardInventory.search, dashboardInventory.invaliDdrugOptions);
 };
 //Dashboard search drug with drugOptions and add to cart
 export async function addToCartItems(page: Page) {

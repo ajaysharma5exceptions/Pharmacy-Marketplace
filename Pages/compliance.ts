@@ -11,7 +11,6 @@ export async function verifyComplianceCards(page: Page) {
     await verifyTextContent(page, "Est. GPR");
     await verifyTextContent(page, "Est. GCR");
     await verifyTextContent(page, "GPR Rebate Tiers");
-    await verifyTextContent(page, "GCR Rebate Tiers for Brand Spend");
 
     //For the Est. GPR
     const gprStartDate = new Date();

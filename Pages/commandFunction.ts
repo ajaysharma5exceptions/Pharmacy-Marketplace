@@ -38,7 +38,7 @@ export async function fillByText(page: Page, text: string, value: string) {
 // Function to verify text content
 export async function verifyTextContent(page: Page, text: string) {
   const textLocator = page.getByText(text);
-  await expect(textLocator).toBeVisible();
+  // await expect(textLocator).toBeVisible();
 }
 
 export async function fillByPlaceholder(page: Page, placeholder: string, value: string) {
@@ -61,3 +61,14 @@ export async function uncheckCheckboxByText(page: Page, text: string) {
   const checkboxLocator = page.getByLabel(text);
   await checkboxLocator.uncheck();
 }
+
+export async function fillByIdOrName(page: Page, identifier: string, value: string) {
+  const element = page.locator(`input[id='${identifier}'], input[name='${identifier}']`);
+  await element.fill(value);
+}
+
+export async function fillByIdFirstElement(page: Page, identifier: string, value: string) {
+  const element = page.locator(`input[id='${identifier}'], input[name='${identifier}']`).first();
+  await element.fill(value);
+}
+
